@@ -5,7 +5,7 @@
     --color: #3e4048;
     --dark-color: #292a32;
     --text-1: #e9e9e9;
-    --text-2: #a1a1a1;
+    --text-2: #c1c1c1;
     --button-hover: #a4a4a4;
 }
 
@@ -13,6 +13,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+}
+
+input {
+    border-radius: 20px;
+    padding: 0 1rem;
+    border: none;
 }
 
 svg {
@@ -31,16 +41,16 @@ body {
     padding-top: 1rem;
 }
 
+
 #header {
+    width: 80%;
+    align-self: center;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 1rem;
     background-color: var(--color);
-    width: 80%;
-    align-self: center;
-    padding: 1rem;
-
+    padding: 2rem;
 }
 
 #header h1 {
@@ -50,7 +60,8 @@ body {
     text-align: center;
 }
 
-#header #add-book {
+#header #add-book,
+form button {
     display: flex;
     gap: 1rem;
     align-items: center;
@@ -67,57 +78,62 @@ body {
     border-radius: 20px;
 }
 
-#header #add-book:hover {
+#header #add-book:hover ,
+form button:hover{
     background-color: var(--button-hover);
-    transform: translate(3%, -3%);
+    transform: translate(1%, -1%);
 }
 
-#header #add-book:active {
-    transform: scale(0.99);
+#header #add-book:focus ,
+form button:focus{
+    outline: none;
+}
+
+#header #add-book:active ,
+form button:active{
+    /* transform: scale(0.99); */
 }
 
 #header #search-bar {
     background-color: var(--text-1);
     color: var(--color);
     font-size: 1.1rem;
-    border-radius: 20px;
-    padding: 0 1rem;
-    border: none;
 }
 
-#header #search-bar:focus {
-    outline: none;
-}
+
 
 #layer-1 {
-    flex-grow: 1;
-    background-color: var(--color);
     width: 80%;
     align-self: center;
+    flex-grow: 1;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-rows: 1fr 1fr;
     grid-auto-rows: 1fr;
     row-gap: 1rem;
-    padding: 4rem;
+    background: var(--dark-color);
 }
 
 .book-cell {
-    height: 200px;
-    background: var(--dark-color);
     padding: 1rem;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .book {
-    flex-grow: 1;
+    width: 200px;
+    height: 180px;
     display: grid;
-    grid-template: 1fr/1fr 10fr;
+    grid-template: 1fr/1fr 12fr;
     grid-template-areas: "book-strip book-info";
+    border-radius: 14px;
+    overflow: hidden;
 }
 
 .book-strip {
     grid-area: book-strip;
-    background-color: #68382d;
+    background: royalblue;
 }
 
 .book-info {
@@ -126,7 +142,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    height: 100%;
+    padding: 4px;
+    gap: 6px;
 }
 
 .book-footer {
@@ -135,15 +153,87 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0 1rem;
+    margin-top: auto;
 }
 
-.book-footer div {
-    padding: 6px;
+
+.book-info .btn-cosplay {
+    padding: 4px 6px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.book-info .btn-cosplay:hover {
+    background-color: var(--text-2);
+}
+
+.book-info .btn-cosplay:active {
+    transform: scale(0.95);
+}
+
+.book-info>.btn-cosplay {
+    align-self: end;
+    margin: 0 1rem;
+}
+
+.book .delete-svg {
+    fill: darkred;
+}
+
+.book .read .read-svg {
+    fill: darkgreen;
+}
+
+.book .not-read .read-svg {
+    fill: gray;
+}
+
+
+#add-book-dialog {
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    border: none;
+    /* padding: 1rem; */
+    background-color: var(--color);
+    width: 400px;
+    fill: var(--text-1);
+    color: var(--text-1);
+}
+
+#add-book-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#add-book-dialog #close-dialog {
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+    margin-left: auto;
+    display: block;
+    padding: 4px;
 
 }
 
-.book-footer div:hover {
-    background-color: var(--text-2);
+#add-book-dialog #close-dialog:hover {
+    background-color: red;
+}
+
+#add-book-dialog form {
+    padding: 1rem;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap: 2rem;
+    justify-items: center;
+}
+form label{
+    text-transform: capitalize;
+}
+form input{
+    background-color: var(--dark-color);
+    color: var(--text-1);
 }
