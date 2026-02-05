@@ -2,25 +2,46 @@
 
 let myLibrary = JSON.parse(localStorage.getItem('myLibrary')) || [];
 
-function Book(title, author, pagesNumber, didRead) {
-    if (!new.target) {
-        throw Error("Book must be called with 'new' keyword")
+class Book {
+    constructor(title, author, pagesNumber, didRead) {
+        if (!new.target) {
+            throw Error("Book must be called with 'new' keyword")
+        }
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pagesNumber = pagesNumber;
+        this.didRead = didRead;
     }
 
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pagesNumber = pagesNumber;
-    this.didRead = didRead;
-}
+    info() {
+        return `${this.title} by ${this.author}, ${this.pagesNumber} pages, ${this.didRead ? "read" : "not read yet"}.`
+    }
 
-Book.prototype.info = function () {
-    return `${this.title} by ${this.author}, ${this.pagesNumber} pages, ${this.didRead ? "read" : "not read yet"}.`
+    toggleDidRead() {
+        this.didRead = !this.didRead;
+    }
 }
+// function Book(title, author, pagesNumber, didRead) {
+//     if (!new.target) {
+//         throw Error("Book must be called with 'new' keyword")
+//     }
 
-Book.prototype.toggleDidRead = function () {
-    this.didRead = !this.didRead;
-}
+//     this.id = crypto.randomUUID();
+//     this.title = title;
+//     this.author = author;
+//     this.pagesNumber = pagesNumber;
+//     this.didRead = didRead;
+// }
+
+// Book.prototype.info = function () {
+//     return `${this.title} by ${this.author}, ${this.pagesNumber} pages, ${this.didRead ? "read" : "not read yet"}.`
+// }
+
+// Book.prototype.toggleDidRead = function () {
+//     this.didRead = !this.didRead;
+// }
+
 
 myLibrary.forEach(book => {
     Object.setPrototypeOf(book, Book.prototype);
@@ -101,7 +122,7 @@ container.addEventListener('click', function (e) {
 
     if (e.target.closest('.toggle-read-btn')) {
         const bookID = e.target.closest('.book').dataset.id;
-        const index  = myLibrary.findIndex( item => item.id===bookID) 
+        const index = myLibrary.findIndex(item => item.id === bookID)
         myLibrary[index].toggleDidRead();
         renderBooks()
     }
