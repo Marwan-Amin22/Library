@@ -89,10 +89,10 @@ form button:focus{
     outline: none;
 }
 
-#header #add-book:active ,
+/* #header #add-book:active ,
 form button:active{
-    /* transform: scale(0.99); */
-}
+    transform: scale(0.99);
+} */
 
 #header #search-bar {
     background-color: var(--text-1);
